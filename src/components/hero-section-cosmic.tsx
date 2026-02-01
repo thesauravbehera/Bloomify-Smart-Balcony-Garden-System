@@ -2,10 +2,24 @@ import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { motion } from "motion/react";
 import { Sparkles, Play, ArrowRight, Stars, Leaf } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useJourney, useTrackClick } from "../hooks/useJourneyTracking";
 
 export function HeroSectionCosmic() {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const { trackEvent } = useJourney();
+  const trackHeroView = useTrackClick('hero_section_view');
+  const trackHeroCta = useTrackClick('hero_cta_click', { cta: 'start_growing' });
+
+  useEffect(() => {
+    // Track hero section view on mount
+    trackEvent({
+      eventType: 'hero_section_view',
+      metadata: {
+        sectionName: 'hero-cosmic',
+      },
+    });
+  }, []);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
@@ -143,6 +157,10 @@ export function HeroSectionCosmic() {
             <Button 
               size="lg" 
               className="btn-cosmic glow-hover px-8 py-6 text-lg rounded-2xl group"
+              onClick={() => {
+                trackHeroCta();
+                // Navigation will be handled by parent or modal
+              }}
             >
               <Leaf className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
               Start Growing Free
@@ -153,7 +171,13 @@ export function HeroSectionCosmic() {
               size="lg" 
               variant="outline"
               className="glass border-primary/20 hover:border-primary/40 px-8 py-6 text-lg rounded-2xl group"
-              onClick={() => setIsVideoOpen(true)}
+              onClick={() => {
+                trackEvent({
+                  eventType: 'hero_cta_click',
+                  metadata: { cta: 'watch_demo' },
+                });
+                setIsVideoOpen(true);
+              }}
             >
               <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
               Watch Demo

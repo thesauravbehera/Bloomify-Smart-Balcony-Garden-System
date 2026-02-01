@@ -8,7 +8,7 @@ const Card = React.forwardRef<HTMLDivElement, React.ComponentProps<"div">>(
       ref={ref}
       data-slot="card"
       className={cn(
-        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border",
+        "bg-gradient-to-br from-slate-800/60 to-slate-850/60 text-gray-100 flex flex-col gap-6 rounded-xl border border-slate-700/50 backdrop-blur-sm",
         className,
       )}
       {...props}

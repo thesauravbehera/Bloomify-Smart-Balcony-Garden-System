@@ -80,11 +80,11 @@ export function FertilizerModal({ isOpen, onClose }: FertilizerModalProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Beaker className="w-5 h-5 text-primary" />
+          <DialogTitle className="flex items-center gap-2 text-white">
+            <Beaker className="w-5 h-5 text-red-400" />
             Organic Fertilizer Recipes
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-gray-400">
             Create your own nutrient-rich fertilizers from kitchen scraps
           </DialogDescription>
         </DialogHeader>
@@ -100,16 +100,16 @@ export function FertilizerModal({ isOpen, onClose }: FertilizerModalProps) {
 
           {recipes.map((recipe, index) => (
             <TabsContent key={index} value={index.toString()}>
-              <Card className="p-6 border-2 border-primary/10">
+              <Card className="p-6 border-2 border-red-500/30 bg-gradient-to-br from-slate-800 to-slate-850">
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h3 className="text-xl font-bold mb-2">{recipe.name}</h3>
+                    <h3 className="text-xl font-bold mb-2 text-white">{recipe.name}</h3>
                     <div className="flex gap-2">
-                      <Badge variant="secondary">{recipe.type}</Badge>
-                      <Badge variant="outline">{recipe.difficulty}</Badge>
+                      <Badge className="bg-red-500/30 text-red-200 border border-red-500/50">{recipe.type}</Badge>
+                      <Badge className="border-red-500/30 text-red-300 bg-red-500/5">{recipe.difficulty}</Badge>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 text-muted-foreground">
+                  <div className="flex items-center gap-2 text-gray-400">
                     <Clock className="w-4 h-4" />
                     <span className="text-sm">{recipe.time}</span>
                   </div>
@@ -117,14 +117,14 @@ export function FertilizerModal({ isOpen, onClose }: FertilizerModalProps) {
 
                 <div className="grid md:grid-cols-2 gap-6 mb-6">
                   <div>
-                    <h4 className="font-medium mb-3 flex items-center gap-2">
-                      <Leaf className="w-4 h-4 text-primary" />
+                    <h4 className="font-medium mb-3 flex items-center gap-2 text-white">
+                      <Leaf className="w-4 h-4 text-red-400" />
                       Ingredients
                     </h4>
                     <ul className="space-y-2">
                       {recipe.ingredients.map((ingredient, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm">
-                          <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2"></div>
+                        <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
+                          <div className="w-1.5 h-1.5 bg-red-400 rounded-full mt-2"></div>
                           <span>{ingredient}</span>
                         </li>
                       ))}
@@ -132,14 +132,14 @@ export function FertilizerModal({ isOpen, onClose }: FertilizerModalProps) {
                   </div>
 
                   <div>
-                    <h4 className="font-medium mb-3 flex items-center gap-2">
-                      <Droplet className="w-4 h-4 text-primary" />
+                    <h4 className="font-medium mb-3 flex items-center gap-2 text-white">
+                      <Droplet className="w-4 h-4 text-red-400" />
                       Benefits
                     </h4>
                     <ul className="space-y-2">
                       {recipe.benefits.map((benefit, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                          <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2"></div>
+                        <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
+                          <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full mt-2"></div>
                           <span>{benefit}</span>
                         </li>
                       ))}
@@ -148,14 +148,14 @@ export function FertilizerModal({ isOpen, onClose }: FertilizerModalProps) {
                 </div>
 
                 <div>
-                  <h4 className="font-medium mb-3">Step-by-Step Instructions</h4>
+                  <h4 className="font-medium mb-3 text-white">Step-by-Step Instructions</h4>
                   <div className="space-y-3">
                     {recipe.steps.map((step, i) => (
                       <div key={i} className="flex gap-3">
-                        <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                          <span className="text-xs font-medium text-primary">{i + 1}</span>
+                        <div className="w-6 h-6 bg-red-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                          <span className="text-xs font-semibold text-red-400">{i + 1}</span>
                         </div>
-                        <p className="text-sm text-muted-foreground pt-0.5">{step}</p>
+                        <p className="text-sm text-gray-300 pt-0.5">{step}</p>
                       </div>
                     ))}
                   </div>

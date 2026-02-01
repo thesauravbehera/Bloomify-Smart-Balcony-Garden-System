@@ -25,7 +25,7 @@ import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { Input } from '../components/ui/input';
 import { Badge } from '../components/ui/badge';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import { useLanguage } from '../contexts/LanguageContext';
 import {
   Select,

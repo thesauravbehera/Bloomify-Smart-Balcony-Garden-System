@@ -5,7 +5,7 @@ import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import { Stethoscope, Upload, AlertTriangle, CheckCircle2, Info } from "lucide-react";
-import { toast } from "sonner@2.0.3";
+import { toast } from "sonner";
 
 interface PlantDoctorModalProps {
   isOpen: boolean;
@@ -60,11 +60,11 @@ export function PlantDoctorModal({ isOpen, onClose }: PlantDoctorModalProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Stethoscope className="w-5 h-5 text-primary" />
+          <DialogTitle className="flex items-center gap-2 text-white">
+            <Stethoscope className="w-5 h-5 text-rose-400" />
             AI Plant Doctor
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-gray-400">
             Upload a photo or describe symptoms for instant diagnosis and treatment
           </DialogDescription>
         </DialogHeader>
@@ -72,13 +72,13 @@ export function PlantDoctorModal({ isOpen, onClose }: PlantDoctorModalProps) {
         {!diagnosis ? (
           <div className="space-y-6">
             {/* Photo Upload */}
-            <Card className="p-8 border-2 border-dashed border-primary/30 hover:border-primary/50 transition-all">
+            <Card className="p-8 border-2 border-dashed border-rose-500/40 hover:border-rose-500/60 transition-all bg-gradient-to-br from-slate-800 to-slate-850">
               <div className="text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Upload className="w-8 h-8 text-primary" />
+                <div className="w-16 h-16 bg-rose-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Upload className="w-8 h-8 text-rose-400" />
                 </div>
-                <h4 className="font-medium mb-2">Upload Plant Photo</h4>
-                <p className="text-sm text-muted-foreground mb-4">
+                <h4 className="font-medium mb-2 text-white">Upload Plant Photo</h4>
+                <p className="text-sm text-gray-400 mb-4">
                   Take a clear photo of affected leaves or plant parts
                 </p>
                 <input
@@ -88,7 +88,7 @@ export function PlantDoctorModal({ isOpen, onClose }: PlantDoctorModalProps) {
                   className="hidden"
                   onChange={handleFileUpload}
                 />
-                <Button onClick={() => document.getElementById("plant-photo")?.click()}>
+                <Button onClick={() => document.getElementById("plant-photo")?.click()} className="bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white font-semibold">
                   Choose Photo
                 </Button>
               </div>
@@ -103,50 +103,50 @@ export function PlantDoctorModal({ isOpen, onClose }: PlantDoctorModalProps) {
               </div>
             </div>
 
-            <Card className="p-6 border-2 border-primary/10">
-              <h4 className="font-medium mb-3">Describe Symptoms</h4>
+            <Card className="p-6 border-2 border-rose-500/30 bg-gradient-to-br from-slate-800 to-slate-850">
+              <h4 className="font-medium mb-3 text-white">Describe Symptoms</h4>
               <Textarea
                 placeholder="Example: Lower leaves are turning yellow and dropping off. New growth looks pale. Plant growing slowly..."
-                className="min-h-32 mb-4"
+                className="min-h-32 mb-4 bg-slate-800/50 border-slate-700/50 text-gray-100 placeholder:text-gray-500"
                 value={symptoms}
                 onChange={(e) => setSymptoms(e.target.value)}
               />
-              <Button onClick={handleDiagnose} className="w-full">
+              <Button onClick={handleDiagnose} className="w-full bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white font-semibold">
                 <Stethoscope className="w-4 h-4 mr-2" />
                 Get Diagnosis
               </Button>
             </Card>
 
             {/* Common Issues Quick Reference */}
-            <Card className="p-6 bg-secondary/30">
-              <h4 className="font-medium mb-3">Common Balcony Garden Issues</h4>
+            <Card className="p-6 bg-gradient-to-r from-rose-500/10 to-pink-500/10 border-2 border-rose-500/20">
+              <h4 className="font-medium mb-3 text-white">Common Balcony Garden Issues</h4>
               <div className="grid md:grid-cols-2 gap-3 text-sm">
                 <div className="flex items-start gap-2">
-                  <Info className="w-4 h-4 text-primary mt-0.5" />
+                  <Info className="w-4 h-4 text-rose-400 mt-0.5" />
                   <div>
-                    <p className="font-medium">Yellow Leaves</p>
-                    <p className="text-muted-foreground text-xs">Often indicates overwatering or nitrogen deficiency</p>
+                    <p className="font-medium text-white">Yellow Leaves</p>
+                    <p className="text-gray-400 text-xs">Often indicates overwatering or nitrogen deficiency</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-2">
-                  <Info className="w-4 h-4 text-primary mt-0.5" />
+                  <Info className="w-4 h-4 text-rose-400 mt-0.5" />
                   <div>
-                    <p className="font-medium">Wilting</p>
-                    <p className="text-muted-foreground text-xs">Can be under-watering or root problems</p>
+                    <p className="font-medium text-white">Wilting</p>
+                    <p className="text-gray-400 text-xs">Can be under-watering or root problems</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-2">
-                  <Info className="w-4 h-4 text-primary mt-0.5" />
+                  <Info className="w-4 h-4 text-rose-400 mt-0.5" />
                   <div>
-                    <p className="font-medium">Brown Leaf Tips</p>
-                    <p className="text-muted-foreground text-xs">Usually low humidity or salt buildup</p>
+                    <p className="font-medium text-white">Brown Leaf Tips</p>
+                    <p className="text-gray-400 text-xs">Usually low humidity or salt buildup</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-2">
-                  <Info className="w-4 h-4 text-primary mt-0.5" />
+                  <Info className="w-4 h-4 text-rose-400 mt-0.5" />
                   <div>
-                    <p className="font-medium">Spots on Leaves</p>
-                    <p className="text-muted-foreground text-xs">Fungal or bacterial infection</p>
+                    <p className="font-medium text-white">Spots on Leaves</p>
+                    <p className="text-gray-400 text-xs">Fungal or bacterial infection</p>
                   </div>
                 </div>
               </div>

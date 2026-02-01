@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Separator } from "./ui/separator";
 import { Leaf, Mail, MapPin, Phone, Instagram, Youtube, MessageCircle, Facebook } from "lucide-react";
-import { toast } from "sonner@2.0.3";
+import { toast } from "sonner";
 
 export function Footer() {
   const [email, setEmail] = useState("");

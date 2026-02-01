@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -7,10 +8,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { Separator } from "./ui/separator";
 import { motion } from "motion/react";
 import { Leaf, Mail, Lock, User, Eye, EyeOff } from "lucide-react";
-import { toast } from "sonner@2.0.3";
+import { toast } from "sonner";
 import { registerUser } from "../lib/auth/register";
 import { loginUser, loginWithGoogle, loginWithGithub } from "../lib/auth/login";
 import { sendPasswordReset } from "../lib/auth/passwordReset";
+import { useJourney, useAuthTracking } from "../hooks/useJourneyTracking";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -18,6 +20,9 @@ interface AuthModalProps {
 }
 
 export function AuthModal({ isOpen, onClose }: AuthModalProps) {
+  const navigate = useNavigate();
+  const { trackEvent } = useJourney();
+  const authTracking = useAuthTracking();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<"login" | "signup">("login");
@@ -33,29 +38,56 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
     password: "",
   });
 
+  // Track modal open
+  useEffect(() => {
+    if (isOpen) {
+      trackEvent({
+        eventType: 'auth_modal_open',
+        metadata: {
+          initialTab: activeTab,
+        },
+      });
+    }
+  }, [isOpen, activeTab, trackEvent]);
+
+  // Track tab changes
+  const handleTabChange = (tab: "login" | "signup") => {
+    setActiveTab(tab);
+    trackEvent({
+      eventType: 'custom_event',
+      metadata: {
+        action: 'auth_tab_change',
+        newTab: tab,
+      },
+    });
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    authTracking.trackLoginStart();
     
     try {
       const result = await loginUser(loginForm);
       
       if (result.success && result.user) {
+        authTracking.trackLoginComplete(result.user.uid);
         toast.success("Welcome back to Bloomify!", {
           description: `Logged in as ${result.user.email}`,
         });
         onClose();
         setLoginForm({ email: "", password: "" });
-        setShowPassword(false);
+        navigate('/dashboard');
       } else {
-        toast.error("Login Failed", {
-          description: result.error || "Please check your credentials and try again.",
+        authTracking.trackAuthError(result.error || 'Login failed');
+        toast.error("Login failed", {
+          description: result.error || "Please try again",
         });
       }
-    } catch (error: any) {
-      toast.error("Login Failed", {
-        description: error.message || "An unexpected error occurred.",
-      });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'An error occurred';
+      authTracking.trackAuthError(errorMessage);
+      toast.error("Error", { description: errorMessage });
     } finally {
       setIsLoading(false);
     }
@@ -64,28 +96,29 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    authTracking.trackSignUpStart();
     
     try {
       const result = await registerUser(signupForm);
       
       if (result.success && result.user) {
-        toast.success("Welcome to Bloomify!", {
-          description: "Your account has been created successfully. Please check your email for verification.",
+        authTracking.trackSignUpComplete(result.user.uid);
+        toast.success("Account created!", {
+          description: "Welcome to Bloomify",
         });
         onClose();
         setSignupForm({ name: "", email: "", password: "" });
-        setShowPassword(false);
-        // Switch to login tab after successful registration
-        setActiveTab("login");
+        navigate('/dashboard');
       } else {
-        toast.error("Registration Failed", {
-          description: result.error || "Please try again.",
+        authTracking.trackAuthError(result.error || 'Signup failed');
+        toast.error("Signup failed", {
+          description: result.error || "Please try again",
         });
       }
-    } catch (error: any) {
-      toast.error("Registration Failed", {
-        description: error.message || "An unexpected error occurred.",
-      });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'An error occurred';
+      authTracking.trackAuthError(errorMessage);
+      toast.error("Error", { description: errorMessage });
     } finally {
       setIsLoading(false);
     }
@@ -144,7 +177,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
         </div>
 
         <div className="px-6 pb-6 pt-4">
-          <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as "login" | "signup")} className="w-full">
+          <Tabs value={activeTab} onValueChange={(v) => { handleTabChange(v as "login" | "signup"); }} className="w-full">
             {/* Custom Tabs List */}
             <TabsList className="grid w-full grid-cols-2 mb-6 glass p-1 rounded-xl border border-primary/20">
               <TabsTrigger 

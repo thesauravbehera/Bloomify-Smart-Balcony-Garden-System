@@ -7,7 +7,7 @@ import { AuthModal } from "./AuthModal";
 import { useAuth } from "../contexts/AuthContext";
 import { useLanguage } from "../contexts/LanguageContext";
 import { logoutUser } from "../lib/auth/logout";
-import { toast } from "sonner@2.0.3";
+import { toast } from "sonner";
 import {
   DropdownMenu,
   DropdownMenuContent,

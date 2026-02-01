@@ -7,10 +7,25 @@ import { Progress } from '../components/ui/progress';
 import { Badge } from '../components/ui/badge';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useJourney, usePlantTracking } from '../hooks/useJourneyTracking';
 
 export function Dashboard() {
   const { currentUser } = useAuth();
   const { t } = useLanguage();
+  const { trackEvent } = useJourney();
+  const plantTracking = usePlantTracking();
+
+  useEffect(() => {
+    // Track dashboard view
+    trackEvent({
+      eventType: 'dashboard_view',
+      metadata: {
+        userId: currentUser?.uid,
+        userName: currentUser?.displayName,
+      },
+    });
+  }, [trackEvent, currentUser]);
+
   const [stats] = useState({
     plantsOwned: 12,
     plantsHealthy: 9,
@@ -44,6 +59,16 @@ export function Dashboard() {
     { url: 'https://sketchfab.com/models/70679a304b324ca8941c214875acf6a9/embed', name: 'SUCCULENT ALPHA', health: 88 },
     { url: 'https://sketchfab.com/models/7c5e77d572c848458e5d898ac49f6f27/embed', name: 'INDOOR BOTANICAL', health: 92 }
   ];
+
+  const handleTaskComplete = (taskId: number) => {
+    trackEvent({
+      eventType: 'task_complete',
+      metadata: {
+        taskId,
+        timestamp: Date.now(),
+      },
+    });
+  };
 
   return (
     <div className="min-h-screen bg-[#020617] text-white pt-32 pb-24 px-6 selection:bg-emerald-500 selection:text-white font-['Inter']">

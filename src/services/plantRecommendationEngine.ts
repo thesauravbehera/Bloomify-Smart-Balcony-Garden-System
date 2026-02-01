@@ -83,7 +83,7 @@ const PLANT_DATABASE: PlantProfile[] = [
       minHours: 6,
       maxHours: 12,
       type: 'fullSun',
-      bestOrientation: ['south', 'southwest', 'west']
+      bestOrientation: ['south', 'west']
     },
     climate: {
       minTemp: 15,
@@ -398,8 +398,8 @@ export class PlantRecommendationEngine {
    * Calculate space compatibility score (0-100)
    */
   private static calculateSpaceScore(plant: PlantProfile, balcony: BalconyDimensions): number {
-    const { minArea, spreadWidth } = plant.spaceRequirements;
-    const { area, height } = balcony;
+    const { minArea, spreadWidth: _spreadWidth } = plant.spaceRequirements;
+    const { area, height: _height } = balcony;
 
     // Check if plant fits
     if (area < minArea) {
@@ -424,7 +424,7 @@ export class PlantRecommendationEngine {
    * Calculate sunlight compatibility score (0-100)
    */
   private static calculateSunScore(plant: PlantProfile, balcony: BalconyDimensions): number {
-    const { minHours, maxHours, type, bestOrientation } = plant.sunlight;
+    const { minHours, maxHours, type: _type, bestOrientation } = plant.sunlight;
     const { peakSunHours, orientation } = balcony;
 
     // Check if sun hours are in acceptable range
@@ -437,7 +437,7 @@ export class PlantRecommendationEngine {
 
     // Check orientation match
     let orientationBonus = 0;
-    if (bestOrientation && bestOrientation.includes(orientation)) {
+    if (bestOrientation && bestOrientation.includes(orientation as 'north' | 'south' | 'east' | 'west')) {
       orientationBonus = 15;
     }
 
@@ -464,7 +464,7 @@ export class PlantRecommendationEngine {
     temperature: number,
     humidity: number
   ): number {
-    const { minTemp, maxTemp, humidityRange, windTolerant, droughtTolerant } = plant.climate;
+    const { minTemp, maxTemp, humidityRange, windTolerant: _windTolerant, droughtTolerant: _droughtTolerant } = plant.climate;
 
     let score = 100;
 
@@ -489,7 +489,7 @@ export class PlantRecommendationEngine {
     plant: PlantProfile,
     balcony: BalconyDimensions,
     temperature: number,
-    humidity: number
+    humidity: number // eslint-disable-line @typescript-eslint/no-unused-vars
   ): string[] {
     const warnings: string[] = [];
 
@@ -519,7 +519,7 @@ export class PlantRecommendationEngine {
   /**
    * Generate helpful tips for growing the plant
    */
-  private static generateTips(plant: PlantProfile, balcony: BalconyDimensions): string[] {
+  private static generateTips(plant: PlantProfile, _balcony: BalconyDimensions): string[] {
     const tips: string[] = [];
 
     if (plant.spaceRequirements.minPotSize > 10) {

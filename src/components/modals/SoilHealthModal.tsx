@@ -57,20 +57,20 @@ export function SoilHealthModal({ isOpen, onClose }: SoilHealthModalProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <TestTube2 className="w-5 h-5 text-primary" />
+          <DialogTitle className="flex items-center gap-2 text-white">
+            <TestTube2 className="w-5 h-5 text-emerald-400" />
             Soil Health Checker & Guide
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-gray-400">
             Test and improve your balcony garden soil for optimal plant growth
           </DialogDescription>
         </DialogHeader>
 
         {/* Overall Health Score */}
-        <Card className="p-6 bg-gradient-to-r from-primary/5 to-accent/5 border-primary/20 mb-6">
+        <Card className="p-6 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border-2 border-emerald-500/20 mb-6">
           <div className="text-center mb-4">
-            <div className="text-4xl font-bold text-primary mb-2">78%</div>
-            <p className="text-muted-foreground">Overall Soil Health Score</p>
+            <div className="text-4xl font-bold text-emerald-400 mb-2">78%</div>
+            <p className="text-gray-400">Overall Soil Health Score</p>
           </div>
           <Progress value={78} className="h-3" />
         </Card>
@@ -78,27 +78,27 @@ export function SoilHealthModal({ isOpen, onClose }: SoilHealthModalProps) {
         {/* Testing Guide */}
         <div className="space-y-4">
           {testingGuide.map((test, index) => (
-            <Card key={index} className="p-6 border-2 border-primary/10 hover:border-primary/20 transition-all">
+            <Card key={index} className="p-6 border-2 border-emerald-500/30 hover:border-emerald-500/50 transition-all bg-gradient-to-br from-slate-800 to-slate-850">
               <div className="flex items-start gap-4">
-                <div className={`w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 ${test.color}`}>
-                  <test.icon className="w-6 h-6" />
+                <div className={`w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center flex-shrink-0 ${test.color}`}>
+                  <test.icon className="w-6 h-6 text-emerald-400" />
                 </div>
                 
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-bold">{test.test}</h4>
-                    <Badge variant={test.status === "Optimal" ? "default" : test.status === "Excellent" ? "secondary" : "outline"}>
+                    <h4 className="font-bold text-white">{test.test}</h4>
+                    <Badge className={test.status === "Optimal" ? "bg-emerald-500/30 text-emerald-200 border border-emerald-500/50" : test.status === "Excellent" ? "bg-teal-500/30 text-teal-200 border border-teal-500/50" : "border-emerald-500/30 text-emerald-300 bg-emerald-500/5"}>
                       {test.status}
                     </Badge>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-4 mb-4">
                     <div>
-                      <p className="text-sm text-muted-foreground mb-1">Ideal Range:</p>
-                      <p className="font-medium">{test.ideal}</p>
+                      <p className="text-sm text-gray-400 mb-1">Ideal Range:</p>
+                      <p className="font-medium text-white">{test.ideal}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-muted-foreground mb-1">Current Status:</p>
+                      <p className="text-sm text-gray-400 mb-1">Current Status:</p>
                       <div className="flex items-center gap-2">
                         <Progress value={test.current} className="flex-1 h-2" />
                         <span className={`text-sm font-medium ${test.color}`}>{test.current}%</span>
@@ -108,15 +108,15 @@ export function SoilHealthModal({ isOpen, onClose }: SoilHealthModalProps) {
 
                   <div className="space-y-3">
                     <div>
-                      <p className="text-sm font-medium mb-1">How to Test:</p>
-                      <p className="text-sm text-muted-foreground">{test.method}</p>
+                      <p className="text-sm font-medium mb-1 text-white">How to Test:</p>
+                      <p className="text-sm text-gray-300">{test.method}</p>
                     </div>
                     <div>
-                      <p className="text-sm font-medium mb-1 flex items-center gap-2">
+                      <p className="text-sm font-medium mb-1 flex items-center gap-2 text-white">
                         <AlertCircle className="w-3 h-3" />
                         How to Improve:
                       </p>
-                      <p className="text-sm text-muted-foreground">{test.fix}</p>
+                      <p className="text-sm text-gray-300">{test.fix}</p>
                     </div>
                   </div>
                 </div>

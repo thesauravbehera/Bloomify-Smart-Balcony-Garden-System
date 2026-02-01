@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Card } from './ui/card';
-import { Button } from './ui/button';
-import { Badge } from './ui/badge';
-import { AlertCircle, Leaf, Droplets, Sun, AlertTriangle, Lightbulb } from 'lucide-react';
+import { Card } from '../ui/card';
+import { Button } from '../ui/button';
+import { Badge } from '../ui/badge';
+import { Leaf, Droplets, Sun, AlertTriangle, Lightbulb } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import type { BalconyDimensions } from './BalconyGeometry/BalconyGeometryAnalyzer';
+import type { BalconyDimensions } from './BalconyGeometryAnalyzer';
 import { PlantRecommendationEngine, type ScoredPlantRecommendation } from '@/services/plantRecommendationEngine';
 
 interface PlantRecommendationsProps {

@@ -115,11 +115,11 @@ export function ExperimentModal({ isOpen, onClose }: ExperimentModalProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <FlaskConical className="w-5 h-5 text-primary" />
+          <DialogTitle className="flex items-center gap-2 text-white">
+            <FlaskConical className="w-5 h-5 text-purple-400" />
             Virtual Lab Experiments
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-gray-400">
             Master advanced growing techniques with step-by-step guidance
           </DialogDescription>
         </DialogHeader>
@@ -139,14 +139,14 @@ export function ExperimentModal({ isOpen, onClose }: ExperimentModalProps) {
                 {/* Header */}
                 <div className="flex items-start justify-between">
                   <div>
-                    <h3 className="text-2xl font-bold mb-2">{experiment.name}</h3>
-                    <p className="text-muted-foreground mb-3">{experiment.description}</p>
+                    <h3 className="text-2xl font-bold mb-2 text-white">{experiment.name}</h3>
+                    <p className="text-gray-400 mb-3">{experiment.description}</p>
                     <div className="flex gap-2">
-                      <Badge>{experiment.difficulty}</Badge>
-                      <Badge variant="outline">{experiment.duration}</Badge>
+                      <Badge className="bg-purple-500/30 text-purple-200 border border-purple-500/50">{experiment.difficulty}</Badge>
+                      <Badge className="border-purple-500/30 text-purple-300 bg-purple-500/5">{experiment.duration}</Badge>
                     </div>
                   </div>
-                  <Button>
+                  <Button className="bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white font-semibold">
                     <Camera className="w-4 h-4 mr-2" />
                     Start Tracking
                   </Button>
@@ -154,15 +154,15 @@ export function ExperimentModal({ isOpen, onClose }: ExperimentModalProps) {
 
                 <div className="grid md:grid-cols-2 gap-6">
                   {/* Materials */}
-                  <Card className="p-6 border-2 border-primary/10">
-                    <h4 className="font-bold mb-4 flex items-center gap-2">
-                      <Lightbulb className="w-4 h-4 text-primary" />
+                  <Card className="p-6 border-2 border-purple-500/30 bg-gradient-to-br from-slate-800 to-slate-850">
+                    <h4 className="font-bold mb-4 flex items-center gap-2 text-white">
+                      <Lightbulb className="w-4 h-4 text-purple-400" />
                       Materials Needed
                     </h4>
                     <ul className="space-y-2">
                       {experiment.materials.map((material, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm">
-                          <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2"></div>
+                        <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
+                          <div className="w-1.5 h-1.5 bg-purple-400 rounded-full mt-2"></div>
                           <span>{material}</span>
                         </li>
                       ))}
@@ -170,15 +170,15 @@ export function ExperimentModal({ isOpen, onClose }: ExperimentModalProps) {
                   </Card>
 
                   {/* Tips */}
-                  <Card className="p-6 border-2 border-primary/10 bg-accent/5">
-                    <h4 className="font-bold mb-4 flex items-center gap-2">
-                      <TrendingUp className="w-4 h-4 text-primary" />
+                  <Card className="p-6 border-2 border-purple-500/30 bg-gradient-to-br from-indigo-500/10 to-purple-500/10">
+                    <h4 className="font-bold mb-4 flex items-center gap-2 text-white">
+                      <TrendingUp className="w-4 h-4 text-purple-400" />
                       Pro Tips
                     </h4>
                     <ul className="space-y-2">
                       {experiment.tips.map((tip, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm">
-                          <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2"></div>
+                        <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
+                          <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full mt-2"></div>
                           <span>{tip}</span>
                         </li>
                       ))}
@@ -187,16 +187,16 @@ export function ExperimentModal({ isOpen, onClose }: ExperimentModalProps) {
                 </div>
 
                 {/* Steps */}
-                <Card className="p-6 border-2 border-primary/10">
-                  <h4 className="font-bold mb-4">Step-by-Step Instructions</h4>
+                <Card className="p-6 border-2 border-purple-500/30 bg-gradient-to-br from-slate-800 to-slate-850">
+                  <h4 className="font-bold mb-4 text-white">Step-by-Step Instructions</h4>
                   <div className="space-y-4">
                     {experiment.steps.map((step, i) => (
                       <div key={i} className="flex gap-4">
-                        <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                          <span className="font-medium text-primary">{i + 1}</span>
+                        <div className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                          <span className="font-semibold text-purple-400">{i + 1}</span>
                         </div>
                         <div className="flex-1 pt-1">
-                          <p className="text-sm text-muted-foreground">{step}</p>
+                          <p className="text-sm text-gray-300">{step}</p>
                         </div>
                       </div>
                     ))}

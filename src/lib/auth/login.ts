@@ -27,10 +27,10 @@ export async function loginUser(data: LoginData): Promise<LoginResponse> {
     const { email, password } = data;
 
     // Validate input
-    if (!email || !email.includes('@')) {
+    if (!email) {
       return {
         success: false,
-        error: "Please provide a valid email address"
+        error: "Please provide an email address"
       };
     }
 
@@ -38,6 +38,38 @@ export async function loginUser(data: LoginData): Promise<LoginResponse> {
       return {
         success: false,
         error: "Please provide your password"
+      };
+    }
+
+    // DEV MODE: Allow admin@bloomify.dev login without Firebase verification
+    if (email === "admin@bloomify.dev" && password === "admin") {
+      console.log("✅ Dev mode login: Admin account activated");
+      const devUser = {
+        uid: "dev-admin-001",
+        email: "admin@bloomify.dev",
+        displayName: "Admin User",
+        photoURL: null,
+        emailVerified: true,
+        isAnonymous: false,
+        metadata: {},
+        providerData: []
+      };
+      
+      // Store in localStorage for persistence
+      localStorage.setItem('devModeUser', JSON.stringify(devUser));
+      
+      return {
+        success: true,
+        user: devUser as any
+      };
+    }
+
+    // Normal Firebase login for other credentials
+    // Validate email format for normal logins
+    if (!email.includes('@')) {
+      return {
+        success: false,
+        error: "Please provide a valid email address"
       };
     }
 

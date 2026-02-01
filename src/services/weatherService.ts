@@ -15,7 +15,7 @@ export interface WeatherData {
   description: string;
 }
 
-const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
+const OPENWEATHER_API_KEY = (import.meta as any).env?.VITE_OPENWEATHER_API_KEY || '';
 
 /**
  * Get weather data from OpenWeatherMap API

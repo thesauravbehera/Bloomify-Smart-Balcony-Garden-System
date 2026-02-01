@@ -6,7 +6,7 @@ import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Card } from "../ui/card";
 import { Bell, Droplet, Scissors, RefreshCw, Plus, Trash2 } from "lucide-react";
-import { toast } from "sonner@2.0.3";
+import { toast } from "sonner";
 
 interface CareRemindersModalProps {
   isOpen: boolean;
@@ -27,34 +27,34 @@ export function CareRemindersModal({ isOpen, onClose }: CareRemindersModalProps)
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Bell className="w-5 h-5 text-primary" />
+          <DialogTitle className="flex items-center gap-2 text-white">
+            <Bell className="w-5 h-5 text-orange-400" />
             Care Reminders & Schedule
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-gray-400">
             Never forget to water, fertilize, or prune your balcony garden plants
           </DialogDescription>
         </DialogHeader>
 
         {/* Existing Reminders */}
         <div className="space-y-3 mb-6">
-          <h4 className="font-medium">Active Reminders</h4>
+          <h4 className="font-medium text-white">Active Reminders</h4>
           {reminders.map((reminder) => (
-            <Card key={reminder.id} className="p-4 border-2 border-primary/10">
+            <Card key={reminder.id} className="p-4 border-2 border-orange-500/30 bg-gradient-to-r from-slate-800 to-slate-850">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  {reminder.task === "Water" && <Droplet className="w-5 h-5 text-blue-500" />}
-                  {reminder.task === "Fertilize" && <RefreshCw className="w-5 h-5 text-green-500" />}
-                  {reminder.task === "Prune" && <Scissors className="w-5 h-5 text-orange-500" />}
+                  {reminder.task === "Water" && <Droplet className="w-5 h-5 text-blue-400" />}
+                  {reminder.task === "Fertilize" && <RefreshCw className="w-5 h-5 text-emerald-400" />}
+                  {reminder.task === "Prune" && <Scissors className="w-5 h-5 text-orange-400" />}
                   <div>
-                    <p className="font-medium">{reminder.plant}</p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="font-medium text-white">{reminder.plant}</p>
+                    <p className="text-sm text-gray-400">
                       {reminder.task} - {reminder.frequency} at {reminder.time}
                     </p>
                   </div>
                 </div>
-                <Button variant="ghost" size="sm">
-                  <Trash2 className="w-4 h-4 text-destructive" />
+                <Button variant="ghost" size="sm" className="text-red-400 hover:text-red-300 hover:bg-red-500/10">
+                  <Trash2 className="w-4 h-4" />
                 </Button>
               </div>
             </Card>
@@ -62,9 +62,9 @@ export function CareRemindersModal({ isOpen, onClose }: CareRemindersModalProps)
         </div>
 
         {/* Add New Reminder */}
-        <div className="space-y-4 p-4 bg-secondary/30 rounded-xl">
-          <h4 className="font-medium flex items-center gap-2">
-            <Plus className="w-4 h-4" />
+        <div className="space-y-4 p-4 bg-gradient-to-br from-slate-800 to-slate-850 border border-orange-500/20 rounded-xl">
+          <h4 className="font-medium flex items-center gap-2 text-white">
+            <Plus className="w-4 h-4 text-orange-400" />
             Add New Reminder
           </h4>
           

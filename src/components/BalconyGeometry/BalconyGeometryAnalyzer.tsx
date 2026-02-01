@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Card } from './ui/card';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import { Card } from '../ui/card';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { AlertCircle, CheckCircle2, ArrowRight } from 'lucide-react';
-import { Alert, AlertDescription } from './ui/alert';
+import { Alert, AlertDescription } from '../ui/alert';
 import { motion } from 'motion/react';
 
 export interface BalconyDimensions {
