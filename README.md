@@ -1,11 +1,43 @@
 
-  # Interactive PlantEdu Website Design (Copy) (Copy)
+  # Bloomify
 
-  This is a code bundle for Interactive PlantEdu Website Design (Copy) (Copy). The original project is available at https://www.figma.com/design/SJMw93vm471YSc4AKnlIE1/Interactive-PlantEdu-Website-Design--Copy---Copy-.
+AI-powered smart balcony gardening platform.
 
-  ## Running the code
+## Features
 
-  Run `npm i` to install the dependencies.
+- 📸 Balcony space analysis using AI
+- 🌿 Personalized plant recommendations
+- 💧 Plant health tracking & reminders
+- 👥 Community gardening hub
+- 🏆 Gamified achievements
+- 🛒 Plant marketplace
 
-  Run `npm run dev` to start the development server.
+## Setup
+
+```bash
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env
+# Add your Firebase & Cloudinary credentials to .env
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+## Tech Stack
+
+- React 18 + TypeScript
+- Vite
+- Tailwind CSS
+- Firebase (Auth, Firestore)
+- Cloudinary (Image hosting)
+
+## License
+
+MIT
   
